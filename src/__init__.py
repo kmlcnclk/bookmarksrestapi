@@ -1,3 +1,4 @@
+import datetime
 from flask import Flask, jsonify, redirect
 import os
 from src.auth import auth
@@ -19,6 +20,8 @@ def create_app(test_config=None):
             SQLALCHEMY_DATABASE_URI=os.environ.get("SQLALCHEMY_DB_URI"),
             SQLALCHEMY_TRACK_MODIFICATIONS=False,
             JWT_SECRET_KEY=os.environ.get("JWT_SECRET_KEY"),
+            JWT_ACCESS_TOKEN_EXPIRES=datetime.timedelta(
+                days=int(os.environ.get("JWT_ACCESS_TOKEN_EXPIRES"))),
             SWAGGER={
                 "title": "Bookmarks API",
                 "uiversion": 3,
